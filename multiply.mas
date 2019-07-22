@@ -1,0 +1,81 @@
+//////////////////////
+/Author: Andrew Gomes
+/Date: 7/6/2017
+//////////////////////
+/
+/ (A * B) * (C * D)
+/ The program only outputs to the screen the inputted values and the -final- result!
+/
+/ The multiplication function uses the variables A and B so when
+/ the program reads C and D in, it stores them as A and B to be used in the function.
+/
+/ The returning result of the function (PRODUCT) is stored as a temporary variable:
+/ (A * B) = PRODUCTTEMP and (C * D) = PRODUCTTEMP2
+/
+/ At the end, the two temporary variables above are stored as A and B again
+/ and then multiplied using the function again.
+////////////////////////
+
+/Multiplying A and B
+Input
+Store A
+Output
+Input
+Store B
+Output
+/Store the result of A*B in a temp var
+JnS MULTIPLICATION
+Load PRODUCT
+Store PRODUCTTEMP
+
+/Multiplying C and D, which are changed to A*B so the function can use them
+Input
+Store A /aka C
+Output
+Input
+Store B /aka D
+Output
+/Store the result of C*D in a temp var
+JnS MULTIPLICATION
+Load PRODUCT
+Store PRODUCTTEMP2
+
+/Store the 2 temporary results back in as A and B so the function can use them
+/for the final multiplication result
+Load PRODUCTTEMP
+Store A
+Load PRODUCTTEMP2
+Store B
+JnS MULTIPLICATION
+Load PRODUCT /Final result of (A*B) * (C*D)
+Output
+
+
+HALT
+
+
+/Multi function for 2 numbers A * B
+MULTIPLICATION, Hex 0
+Load B
+Store MULTICOUNTER
+Clear
+Store PRODUCT
+LOOP, Load PRODUCT
+Add A
+Store PRODUCT
+Load MULTICOUNTER
+Subt ONE
+Store MULTICOUNTER
+Skipcond 400
+Jump LOOP
+Load PRODUCT
+JumpI MULTIPLICATION
+
+
+A, Dec 0
+B, Dec 0
+ONE, Dec 1
+PRODUCT, Dec 0 /Result of multiplication from function
+MULTICOUNTER, Dec 0/Temp var for the amount of times to iterate, stops an endless loop
+PRODUCTTEMP, Dec 0 /Temp result
+PRODUCTTEMP2, Dec 0 /Temp result 2
